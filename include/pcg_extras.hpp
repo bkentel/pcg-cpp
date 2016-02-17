@@ -62,6 +62,14 @@
     #define PCG_NOINLINE
 #endif
 
+#ifdef __GNUC__
+    #define PCG_ALWAYS_INLINE __attribute__((always_inline))
+#elif defined(_MSC_VER)
+    #define PCG_ALWAYS_INLINE __forceinline
+#else
+    #define PCG_ALWAYS_INLINE
+#endif
+
 /*
  * Some members of the PCG library use 128-bit math.  When compiling on 64-bit
  * platforms, both GCC and Clang provide 128-bit integer types that are ideal
