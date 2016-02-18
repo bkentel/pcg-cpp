@@ -818,7 +818,10 @@ struct xsh_rr_mixin {
                                 : 0;
         bitcount_t amprot = (rot << amplifier) & mask;
         internal ^= internal >> xshift;
-        xtype result = xtype(internal >> bottomspare);
+
+        constexpr xtype result_mask = (1ull << xtypebits) - 1;
+
+        xtype result = xtype((internal >> bottomspare) & result_mask);
         result = rotr(result, amprot);
         return result;
     }
